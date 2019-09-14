@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  description: MyString
+  age: MyString
+  sex: MyString
+  latitude: MyString
+  longitude: MyString
+  abducted: false
+
+two:
+  description: MyString
+  age: MyString
+  sex: MyString
+  latitude: MyString
+  longitude: MyString
+  abducted: false

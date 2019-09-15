@@ -2,15 +2,18 @@ class SurvivorsController < ApplicationController
   
   before_action :set_survivor, only: [:show, :update]
   before_action :set_calculations, only: [:abducted_percentage]
-
+  skip_before_action :verify_authenticity_token
 
   # GET /survivors
   def index
     @survivors = Survivor.all.order(:description)
 
-    render json: @survivors, include: [:denunciations]
-    if @survivor = nil
-      render json: "\nNo Survivors here Add Some!"
+    
+    
+    if Survivor.all.blank?
+      return render json: "\nNo Survivors here Add Some!"
+    else
+      render json: @survivors, include: [:denunciations]
     end
   end
 
@@ -23,9 +26,7 @@ class SurvivorsController < ApplicationController
   def create
     @survivor = Survivor.new(survivor_params)
 
-    if ! @survivor.description.valid_encoding?
-  @survivor.description = @survivor.description.force_encoding("UTF-8")
-end
+    
     Survivor.all.each do |i|
       if @survivor.description == i.description
         return render json:  "\nThis Name Already exists!!"
@@ -33,7 +34,7 @@ end
     end
     if @survivor.latitude.blank?
       @survivor = Survivor.find_or_create_by(
-        description: @survivor.description,
+        description: @survivor.description.scrub,
         age: @survivor.age,
         sex: @survivor.sex,
         latitude: Faker::Address.latitude,
@@ -60,6 +61,8 @@ end
       else
         render json: @survivor.errors, status: :unprocessable_entity
       end
+    else
+      render json:  "\nSurvivor abducted!!!"
     end
   end
 
@@ -68,13 +71,13 @@ end
   # GET /survivors/abducted_percentage
   def abducted_percentage
     render json: {
-      survivors_count: @survivors_total_count.to_i,
+      survivors_count: @survivors_total_count,
       non_abducted: { 
-        amount: @non_abducted_count.to_i,
+        amount: @non_abducted_count,
         percentage: "#{@non_abducted_percentage}%"
       },
       abducted: {
-        amount: @abducted_count.to_i,
+        amount: @abducted_count,
         percentage: "#{@abducted_percentage}%"
       }
     }

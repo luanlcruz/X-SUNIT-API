@@ -12,9 +12,11 @@ class DenunciationsController < ApplicationController
   def show 
     if params[:survivor_id]
       return render json: Denunciation.where(survivor_id: params[:survivor_id])
+    else
+      return render json: Denunciation.where(survivor_id: params[:id])
     end
 
-    render json: Denunciation.where(survivor_id: params[:id])
+    
   end
 
   # POST /denunciations
@@ -46,7 +48,7 @@ class DenunciationsController < ApplicationController
     def action_errors
       if @sender.abducted 
         render json: "\nYou can't do this, you are already Abducted!!"
-      elsif params[:sender_id].to_i == params[:survivor_id].to_i
+      elsif params[:sender_id] == params[:survivor_id]
         render json: "\nYou can't do this. Are you trying to report yourself?"
       end
     end

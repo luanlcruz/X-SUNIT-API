@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  
+  # Statistics routes.
   get 'survivors/abducted_survivors'
   get 'survivors/non_abducted_survivors'
   get 'survivors/abducted_percentage'
@@ -9,7 +11,7 @@ Rails.application.routes.draw do
     resource :survivor, only: [:index, :show]
   end
 
-  # Survivors routes (destroy route is not used).
+  # Survivors routes.
   resources :survivors, only: [:index, :show, :create, :update] do
     resource :location, only: [:index, :show]
     resource :denunciations, only: [:show]

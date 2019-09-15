@@ -10,7 +10,7 @@ namespace :dev do
   end
 
   desc "Create survivors and their initial locations."
-  task add_survivors: :environment do
+  task add_surv: :environment do
     show_spinner("Creating survivors and their standard locations.") do
       Random.rand(50..100).times do |i|
         @survivor = Survivor.find_or_create_by!(
@@ -28,10 +28,11 @@ namespace :dev do
 
   private
     def show_spinner(start_msg, end_msg = "Done!")
-      spinner = TTY::Spinner.new("[:spinner] Executing task: #{start_msg}", format: :pulse_2)
+      spinner = TTY::Spinner.new("[:spinner] Executing task: #{start_msg}", format: :classic)
       spinner.auto_spin
       yield
       spinner.success("(#{end_msg})")
+      puts "App by: Luan de Lima Cruz :D"
     end
-    puts "App by: Luan de Lima Cruz :D"
+    
 end

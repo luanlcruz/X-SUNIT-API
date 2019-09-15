@@ -1,24 +1,37 @@
 # README
+# SUNIT (Extraterrestrial Survival Unit) Gocase Test
+Versions
+- ruby '2.6.3'
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- rails '6.0.0'
 
-Things you may want to cover:
+All others gems and versions on Gemfile.
 
-* Ruby version
+This api will:
 
-* System dependencies
+- Add survivors to the database
+ A survivor must have a name, age, gender and last location (latitude, longitude).
 
-* Configuration
+- Update survivor location
 
-* Database creation
+ A survivor must have the ability to update their last location, storing the new latitude/longitude pair in the base (no need to track      locations, just replacing the previous one is enough).
 
-* Database initialization
+- Flag survivor as abducted
 
-* How to run the test suite
+In a chaotic situation like that, it's inevitable that a survivor may get abducted. When this happens, we need to flag the survivor was abducted.
 
-* Services (job queues, cache servers, search engines, etc.)
+A survivor is marked as abducted when at least three other survivors report their abduction.
 
-* Deployment instructions
+- Reports
 
-* ...
+The API must offer the following reports:
+
+Percentage of abducted survivors.
+
+Percentage of non-abducted survivors.
+
+List of all survivors names, by alphabetic order, with an identification to know who was abducted.
+
+
+# All the documentation here:
+https://documenter.getpostman.com/view/8803343/SVmtxerU?version=latest
